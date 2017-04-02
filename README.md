@@ -1,4 +1,4 @@
-# Abount
+# About
 
 非科班生从0到1学习Android
 
