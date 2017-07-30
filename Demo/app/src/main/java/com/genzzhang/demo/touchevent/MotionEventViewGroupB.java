@@ -35,17 +35,12 @@ public class MotionEventViewGroupB extends LinearLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         Log.e(C.TAG, "MotionEventViewGroupB onInterceptTouchEventB:" + getAction(ev));
-        //如果down时间被拦截，则move、up也没有了
-        if (getAction(ev).equals("ACTION_DOWN"))
-            return true;
         return super.onInterceptTouchEvent(ev);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         Log.e(C.TAG, "MotionEventViewGroupB onTouchEventB:" + getAction(ev));
-        if (getAction(ev).equals("ACTION_DOWN"))
-            return true;
         return super.onTouchEvent(ev);
     }
 
