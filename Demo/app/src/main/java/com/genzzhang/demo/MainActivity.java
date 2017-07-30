@@ -1,28 +1,81 @@
 package com.genzzhang.demo;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+import com.genzzhang.demo.listviewanimation.ListviewAniActivity;
+import com.genzzhang.demo.porterduffanimation.PorterDuffActivity;
+import com.genzzhang.demo.horizontalloopview.HorizontnalLoopViewActivity;
+import com.genzzhang.demo.shader.ShaderActivity;
+import com.genzzhang.demo.touchevent.TouchEventActivity;
+import com.genzzhang.demo.util.C;
+import com.genzzhang.demo.xmlparser.EmojiParseActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends Activity {
+
+    private ListView mListView;
+    private List<ActivityHolder> mActivityList = new ArrayList<>();
+    private String[] mDescri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LinearLayout layout = (LinearLayout) LayoutInflater.from(MainActivity.this)
-                .inflate(R.layout.activity_main, null);
-        final HorizontalLoopGridView gridView = new HorizontalLoopGridView(MainActivity.this);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.width = HorizontalLoopGridView.sCardSize;
-        params.gravity = Gravity.CENTER_HORIZONTAL;
-        new HorizontalLoopGridAdapter(MainActivity.this, gridView, null);
-        layout.addView(gridView, params);
-        setContentView(layout);
+        setContentView(R.layout.activity_main);
+        loadClass();
+        mListView = (ListView) findViewById(R.id.listview);
+        mListView.setAdapter(new ArrayAdapter<String>(MainActivity.this,
+                android.R.layout.simple_list_item_1, mDescri));
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, mActivityList.get(position).cls);
+                intent.putExtra(C.Extra.Title, mActivityList.get(position).descri);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.title).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Uri uri = Uri.parse("https://genzzhang.github.io/");
+                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                startActivity(intent);
+                return true;
+            }
+        });
+    }
+
+    private void loadClass() {
+        //add activity @ here and manifest, start
+        mActivityList.add(new ActivityHolder("水平循环滚动：支持自动播放和左右滑动", HorizontnalLoopViewActivity.class));
+        mActivityList.add(new ActivityHolder("触摸事件分发与拦截测试", TouchEventActivity.class));
+        mActivityList.add(new ActivityHolder("ListView删除动画", ListviewAniActivity.class));
+        mActivityList.add(new ActivityHolder("PorterDuff模式实践", PorterDuffActivity.class));
+        mActivityList.add(new ActivityHolder("Paint的setShader之着色器", ShaderActivity.class));
+        mActivityList.add(new ActivityHolder("读取assets中Xml解析展示Emoji", EmojiParseActivity.class));
+
+        //end
+        mDescri = new String[mActivityList.size()];
+        for (int i = 0; i < mActivityList.size(); i++) {
+            mDescri[i] = i + 1 + ". " + mActivityList.get(i).descri;
+        }
+    }
+
+    private class ActivityHolder {
+        public String descri;
+        public Class<? extends Activity> cls;
+
+        public ActivityHolder(String name, Class cls) {
+            this.descri = name;
+            this.cls = cls;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.genzzhang.demo;
+package com.genzzhang.demo.horizontalloopview;
 
 import android.content.Context;
 import android.os.Handler;
@@ -9,13 +9,12 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 import android.widget.Scroller;
-import android.widget.Toast;
 
 /**
  * Created by genzzhang on 2017/4/16.
  */
 
-public class HorizontalLoopGridView extends GridView {
+public class HorizontalLoopView extends GridView {
     public static final int sItemSize = 800;
     public static final int sCardSize = 960;
 
@@ -36,12 +35,12 @@ public class HorizontalLoopGridView extends GridView {
     private Handler mHandler;
     private Runnable mRunnable;
 
-    public HorizontalLoopGridView(Context context) {
+    public HorizontalLoopView(Context context) {
         super(context);
         init(context);
     }
 
-    public HorizontalLoopGridView(Context context, AttributeSet attrs) {
+    public HorizontalLoopView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
