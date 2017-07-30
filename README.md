@@ -53,8 +53,6 @@ public boolean dispatchTouchEvent(MotionEvent ev){
         // so this view group continues to intercept touches.
         intercepted = true;
     }
-
-
 	//分发给自己，super.dispatchTouchEvent 也就是下文中的View.dispatchTouchEvent 会调用消费方法
 	// Dispatch to touch targets.
     if (mFirstTouchTarget == null) {
