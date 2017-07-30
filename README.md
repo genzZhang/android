@@ -37,7 +37,7 @@ public boolean dispatchTouchEvent(MotionEvent ev){
 ViewGroup 三个函数的调用关系  
 ```
 public boolean dispatchTouchEvent(MotionEvent ev){
-    // Check for interception.
+   	// Check for interception.
     final boolean intercepted;
     if (actionMasked == MotionEvent.ACTION_DOWN
             || mFirstTouchTarget != null) {
@@ -55,7 +55,7 @@ public boolean dispatchTouchEvent(MotionEvent ev){
     }
 
 
-	// Dispatch to touch targets.
+   	// Dispatch to touch targets.
     if (mFirstTouchTarget == null) {
         // No touch targets so treat this as an ordinary view.
         handled = dispatchTransformedTouchEvent(ev, canceled, null,
@@ -86,8 +86,8 @@ ViewGroup在什么情况下可以执行onInterceptTouchEvent方法？从上述�
  + 我们知道，拦截是由 onInterceptTouchEvent 方法的返回值决定的。假设该 ViewGroup 没有被设置为不允许拦截（即正常情况下），那么对于 DOWN 事件，onInterceptTouchEvent 方法肯定会被调用。另外，如果是 MOVE、UP 或其他事件类型，只要满足 mFirstTouchTarget != null 时也会调用 onInterceptTouchEvent。
  + mFirstTouchTarget是用来记录在 DOWN 事件中消费了事件的子View，它以链表的形式存在，通过next变量串起来。在DOWN事件中，如果通过点击的坐标找到了某个子View，且该子View消费了事件，那么链表中就将这个子View记录了下来。这样在后续的MOVE、UP事件中，能直接根据这个链表，将事件分发给目标子View，而无需重复再遍历子View去寻找事件的消费者。
  + 如果在onInterceptTouchEvent方法中后面拦截了非DOWN的事件，那么分发ACTION_CANCEL到子view中，mFirstTouchTarget = NULL,并且把事件分发到自己的onTouchEvent方法去处理。而如果onInterceptTouchEvent方法中拦截的是DOWN事件，那么将导致在dispatch过程中找不到事件的消费者（即 mFirstTouchTarget == null），那么后续的MOVE、UP事件将不会再询问是否需要拦截，而是直接分发到自己的onTouchEvent方法去处理。
->* disallowIntercept == false
- 子View可以调用getParent().requestDisallowInterceptTouchEvent(disallowIntercept = true)避免事件被拦截
+>* disallowIntercept == false  
+ child View可以调用getParent().requestDisallowInterceptTouchEvent(disallowIntercept = true)避免事件被拦截
 
 
 View中方法调用关系，其中view没有子view则无需拦截，也就没有onInterceptTouchEvent方法   
