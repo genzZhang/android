@@ -87,7 +87,7 @@ ViewGroup在什么情况下可以执行onInterceptTouchEvent方法？从上述�
  + mFirstTouchTarget是用来记录在 DOWN 事件中消费了事件的子View，它以链表的形式存在，通过next变量串起来。在DOWN事件中，如果通过点击的坐标找到了某个子View，且该子View消费了事件，那么链表中就将这个子View记录了下来。这样在后续的MOVE、UP事件中，能直接根据这个链表，将事件分发给目标子View，而无需重复再遍历子View去寻找事件的消费者。
  + 如果在onInterceptTouchEvent方法中后面拦截了非DOWN的事件，那么分发ACTION_CANCEL到子view中，mFirstTouchTarget = NULL,并且把事件分发到自己的onTouchEvent方法去处理。而如果onInterceptTouchEvent方法中拦截的是DOWN事件，那么将导致在dispatch过程中找不到事件的消费者（即 mFirstTouchTarget == null），那么后续的MOVE、UP事件将不会再询问是否需要拦截，而是直接分发到自己的onTouchEvent方法去处理。
 >* disallowIntercept == false  
- child View可以调用getParent().requestDisallowInterceptTouchEvent(disallowIntercept = true)避免事件被拦截
+ + child View可以调用getParent().requestDisallowInterceptTouchEvent(disallowIntercept = true)避免事件被拦截
 
 
 View中方法调用关系，其中view没有子view则无需拦截，也就没有onInterceptTouchEvent方法   
