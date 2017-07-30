@@ -53,7 +53,8 @@ public boolean dispatchTouchEvent(MotionEvent ev){
         // so this view group continues to intercept touches.
         intercepted = true;
     }
-	//分发给自己，super.dispatchTouchEvent 也就是下文中的View.dispatchTouchEvent 会调用消费方法
+
+
 	// Dispatch to touch targets.
     if (mFirstTouchTarget == null) {
         // No touch targets so treat this as an ordinary view.
@@ -62,6 +63,7 @@ public boolean dispatchTouchEvent(MotionEvent ev){
     } 
 }  
 
+//分发给自己，super.dispatchTouchEvent 也就是下文中View的事件分发
 private boolean dispatchTransformedTouchEvent(MotionEvent event, boolean cancel,
         View child, int desiredPointerIdBits) {
     // Canceling motions is a special case.  We don't need to perform any transformations
