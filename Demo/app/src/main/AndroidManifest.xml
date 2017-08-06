@@ -22,6 +22,7 @@
         <activity android:name=".listviewanimation.ListviewAniActivity"/>
         <activity android:name=".shader.ShaderActivity"/>
         <activity android:name=".xmlparser.EmojiParseActivity"/>
+        <activity android:name=".richtexts.RichTextsActivity"/>
     </application>
 
 </manifest>
