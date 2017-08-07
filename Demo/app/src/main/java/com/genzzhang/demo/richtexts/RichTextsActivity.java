@@ -69,8 +69,8 @@ public class RichTextsActivity extends AbsActivity {
             public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
                 paint.setTextSize(fontSize);
                 width.add(0, Math.round(paint.measureText(text, start, end)));
-                //加上文字左右各一个
-                return width.get(0) + 2 * fontPadding;
+                //整体左边加2个，加上文字内部左右各一个4个
+                return width.get(0) + 4 * fontPadding;
             }
             @Override
             public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom,
@@ -95,11 +95,11 @@ public class RichTextsActivity extends AbsActivity {
                         width.get(0) + 2 * fontPadding,
                         height);
                 //绘制背景图
-                super.draw(canvas, text, start, end, x, top, y, bgBottom, paint);
+                super.draw(canvas, text, start, end, x + 2 * fontPadding, top, y, bgBottom, paint);
                 paint.setColor(Color.RED);
                 //paint.setTypeface(Typeface.create("normal", Typeface.BOLD));
                 canvas.drawText(text.subSequence(start, end).toString(),
-                        x + fontPadding,
+                        x + fontPadding * 3,
                         baseY, paint);
             }
         }, title.length(), title.length() + mark.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

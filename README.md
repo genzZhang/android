@@ -140,8 +140,11 @@ public boolean dispatchTouchEvent(MotionEvent event) {
 
 ![](/Demo/docs/image/2017-07-30-XmlEmojiParse.png)
 
+## 7. 富文本展示
+>1）ImageSpan居中设置背景文本  
+2）待续
 
-
+![](/Demo/docs/image/2017-08-07-RichTexts.png)
 
 
 
