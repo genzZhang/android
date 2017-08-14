@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -75,26 +76,21 @@ public class RichTextsActivity extends AbsActivity {
             @Override
             public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom,
                              Paint paint) {
-                canvas.drawLine(x, top, x + 300, top, paint);
-                canvas.drawLine(x, y, x + 300, y, paint);
-                canvas.drawLine(x, bottom, x + 300, bottom, paint);
-
                 float oldad = paint.descent() + paint.ascent();
                 paint.setTextSize(fontSize);
                 float newad = paint.descent() + paint.ascent();
-                //以改变前的为中间基准
+                //以改变前的字体为中间基准
                 int baseY = (int)(y * 2 + oldad - newad ) / 2;
                 int textHeight = (int)(paint.descent() - paint.ascent());
                 //字体净高度 + 背景边界宽度=总高度
                 int height = textHeight + cornerSize * 2;
-                //以新的文字中心点基准
-                int bgBottom = (int)((2 * baseY + newad + height) / 2.0);
+                //背景图的要显示实际下边沿，作为bottom
+                int bgBottom = (int)(baseY + paint.descent() + cornerSize);
                 getDrawable().setBounds(
                         0,
                         0,
                         width.get(0) + 2 * fontPadding,
                         height);
-                //绘制背景图
                 super.draw(canvas, text, start, end, x + 2 * fontPadding, top, y, bgBottom, paint);
                 paint.setColor(Color.RED);
                 //paint.setTypeface(Typeface.create("normal", Typeface.BOLD));
@@ -103,7 +99,6 @@ public class RichTextsActivity extends AbsActivity {
                         baseY, paint);
             }
         }, title.length(), title.length() + mark.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
         return msp;
     }
 }
