@@ -142,7 +142,7 @@ public boolean dispatchTouchEvent(MotionEvent event) {
 
 ## 7. 富文本展示
 >1）ImageSpan居中设置背景文本  
-2）待续
+2）详情参考：[Android Canvas drawText 实现文字垂直居中及其背景绘制](https://genzzhang.github.io/Android-Canvas-drawText实现文字垂直居中及其背景绘制/)
 
 ![](/Demo/docs/image/2017-08-07-RichTexts.png)
 
