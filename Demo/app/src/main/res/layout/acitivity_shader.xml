@@ -13,6 +13,11 @@
         android:text="Hello World!"
         android:layout_margin="20dp"/>
 
+    <com.genzzhang.demo.shader.LoadingView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"/>
+
     <com.genzzhang.demo.shader.ShadowView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

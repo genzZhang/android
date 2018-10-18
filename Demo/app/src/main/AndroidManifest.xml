@@ -23,6 +23,7 @@
         <activity android:name=".shader.ShaderActivity"/>
         <activity android:name=".xmlparser.EmojiParseActivity"/>
         <activity android:name=".richtexts.RichTextsActivity"/>
+        <activity android:name=".nestscrollsuction.NestScrollSuctionActivity"/>
     </application>
 
 </manifest>

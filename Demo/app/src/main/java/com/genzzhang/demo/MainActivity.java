@@ -9,9 +9,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.genzzhang.demo.listviewanimation.ListviewAniActivity;
-import com.genzzhang.demo.porterduffanimation.PorterDuffActivity;
 import com.genzzhang.demo.horizontalloopview.HorizontnalLoopViewActivity;
+import com.genzzhang.demo.listviewanimation.ListviewAniActivity;
+import com.genzzhang.demo.nestscrollsuction.NestScrollSuctionActivity;
+import com.genzzhang.demo.porterduffanimation.PorterDuffActivity;
 import com.genzzhang.demo.richtexts.RichTextsActivity;
 import com.genzzhang.demo.shader.ShaderActivity;
 import com.genzzhang.demo.touchevent.TouchEventActivity;
@@ -63,6 +64,7 @@ public class MainActivity extends Activity {
         mActivityList.add(new ActivityHolder("Paint的setShader之着色器", ShaderActivity.class));
         mActivityList.add(new ActivityHolder("读取assets中Xml解析展示Emoji", EmojiParseActivity.class));
         mActivityList.add(new ActivityHolder("富文本展示", RichTextsActivity.class));
+        mActivityList.add(new ActivityHolder("嵌套滑动吸顶页面", NestScrollSuctionActivity.class));
 
         //end
         mDescri = new String[mActivityList.size()];
