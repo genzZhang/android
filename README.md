@@ -23,7 +23,7 @@ public boolean dispatchTouchEvent(MotionEvent ev){
     return handle;
 }
 ```
- 
+
 ViewGroup在什么情况下可以执行onInterceptTouchEvent方法？需要同时满足以下2个条件：  
 >### ACTION_DOWN或mFirstTouchTarget != null
  + 我们知道，拦截是由 onInterceptTouchEvent 方法的返回值决定的。假设该 ViewGroup 没有被设置为不允许拦截（即正常情况下），那么对于 DOWN 事件，onInterceptTouchEvent 方法肯定会被调用。另外，如果是 MOVE、UP 或其他事件类型，只要满足 mFirstTouchTarget != null 时也会调用 onInterceptTouchEvent。  
@@ -56,7 +56,7 @@ View中方法调用关系，其中view没有子view则无需拦截，也就没�
 >1）倒影效果  
 2）闪烁文字  
 3）背景渐变色设置
- 
+
 ![](/Demo/docs/image/2017-07-30-Shader.png)
 
 ## 6. 读取assets中Xml解析展示Emoji
@@ -70,6 +70,13 @@ View中方法调用关系，其中view没有子view则无需拦截，也就没�
 2）详情参考：[Android Canvas drawText 实现文字垂直居中及其背景绘制](https://genzzhang.github.io/Android-Canvas-drawText实现文字垂直居中及其背景绘制/)
 
 ![](/Demo/docs/image/2017-08-07-RichTexts.png)
+
+## 8.嵌套滑动吸顶页面
+
+> 1）自定义嵌套滑动控件，解决ScrollView嵌套ListView性能的问题  
+> 2）页面吸顶效果实现
+
+![](/Demo/docs/image/2018-10-19-NestScrollSuction.png)
 
 
 
