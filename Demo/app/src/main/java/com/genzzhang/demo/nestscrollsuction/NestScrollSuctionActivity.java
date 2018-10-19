@@ -47,8 +47,6 @@ public class NestScrollSuctionActivity extends AbsActivity {
         nestScrollLayout.setBackgroundColor(Color.TRANSPARENT);
         lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         lp.topMargin = titleHeight;
-        lp.leftMargin = Tools.dip2px(13);
-        lp.rightMargin = lp.leftMargin;
         layout.addView(nestScrollLayout, lp);
         nestScrollLayout.setOnScrollListener(new NestScrollLayout.OnScrollListener() {
             @Override
