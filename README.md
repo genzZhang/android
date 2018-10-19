@@ -7,9 +7,44 @@
 
 ## 2. 触摸事件分发与拦截测试
 详情参考：[Android 触摸事件分发机制详解](https://genzzhang.github.io/Android触摸事件分发机制详解/)  
->分发：public boolean dispatchTouchEvent(MotionEvent ev)  
->拦截：public boolean onInterceptTouchEvent(MotionEvent ev)  
->消费：public boolean onTouchEvent(MotionEvent ev)和OnTouchListener接口中boolean onTouch(View v, MotionEvent event)  
+>```
+>1）触摸事件分发流程
+>屏幕 -> 驱动 -> 定期上报触摸事件 -> 设备文件记录 -> Andorid定期读取  -> Window -> Activity ->  ViewTree 
+>
+>2）ViewTree处理触摸事件
+>所有的RawEvent事件都会被封装成MotionEvent对象，该对象代表了Touch事件的坐标、动作等基本信息。
+>动作：ACTION_DOWN、ACTION_MOVE、ACTION_UP、ACTION_CANCEL等
+>坐标：getRawX、getX
+>分发：public boolean dispatchTouchEvent(MotionEvent ev)
+>拦截：public boolean onInterceptTouchEvent(MotionEvent ev)
+>消费：public boolean OnTouchListener.onTouch(View v, MotionEvent event)
+>     public boolean onTouchEvent(MotionEvent ev)
+>     public void OnClickListener.onClick(View v) ...
+>```
+>
+>```
+>3）触摸事件分发处理流程
+>ViewGroup:
+>    dispatchTouchEvent           
+>        onInterceptTouchEvent            
+>        child.dispatchTouchEvent (TouchTarget记录消费Down事件View)                 
+>        super.dispatchTouchEvent
+>View:
+>    dispatchTouchEvent         
+>        OnTouchListener.onTouch(View v, MotionEvent event)       
+>        onTouchEvent(MotionEvent ev)
+>            TouchDegate.onTouchEvent(MotionEvent ev)
+>            OnClickListener.onClick(View v)
+>```
+>
+>```
+>4）使用自己的分发逻辑  
+>   合理不调用super.dispatchTouchEvent
+>   合理修改MotionEvent属性，包括动作或坐标，如果cancel则TouchTarget记录清除后续不再分发
+>   合理自行调用触摸相关的函数
+>   TouchDegate.onTouchEvent代理，可以把A接收到的事件传递给B
+>   return true表示此View或其子View要处理相关的触摸逻辑，后续的相关事件要继续分发到此
+>```
 
 以上三类函数非常重要，贯穿整个事件分发的流程，伪代码如下
 ```
@@ -54,8 +89,9 @@ View中方法调用关系，其中view没有子view则无需拦截，也就没�
 
 ## 5. Shader：Paint的setShader之着色器
 >1）倒影效果  
-2）闪烁文字  
-3）背景渐变色设置
+>2）闪烁文字  
+>3）背景渐变色设置  
+>4）转菊花  
 
 ![](/Demo/docs/image/2017-07-30-Shader.png)
 
