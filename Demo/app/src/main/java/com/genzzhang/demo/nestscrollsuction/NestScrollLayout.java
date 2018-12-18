@@ -12,6 +12,7 @@ import android.view.TouchDelegate;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewTreeObserver;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
@@ -371,21 +372,17 @@ public class NestScrollLayout extends LinearLayout {
      * @param delegateView
      */
     public void setHeaderTouchDelegate(final View headerProxyView, final View delegateView) {
-        try {
-            if (NestScrollLayout.this.post(new Runnable() {
-                @Override
-                public void run() {
-                    Rect rect = new Rect();
-                    headerProxyView.getHitRect(rect);
-                    TouchDelegate delegate = new TouchDelegate(rect, delegateView);
-                    NestScrollLayout.this.setTouchDelegate(delegate);
-                }
-            })) {
+        NestScrollLayout.this.getViewTreeObserver().removeOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                Rect rect = new Rect();
+                headerProxyView.getHitRect(rect);
+                TouchDelegate delegate = new TouchDelegate(rect, delegateView);
+                NestScrollLayout.this.setTouchDelegate(delegate);
                 mHeaderClickEnable = true;
+                return true;
             }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     /**
