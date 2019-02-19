@@ -52,6 +52,7 @@ public class LauncherAliasManager {
     private static final int SET_INTERVAL = 200;//每再尝试一次就减少延后时间
     private static final int TRY_COUNT = 3;//最多尝试的次数，加上最开始试着处理的try_deal，一共是4次
     private int mSetDelay = SET_DELAY;
+    private long mLastRetryTime = 0L;
 
     private String mEnableAlias;
     private ArrayList<String> mAliasList = new ArrayList<String>();
@@ -133,6 +134,7 @@ public class LauncherAliasManager {
                 }
                 //边寻找基准点边send，试着认为当前就可以认为是基准点
                 mSetDelay = SET_DELAY;
+                mLastRetryTime = 0L;
                 setPackageManagerServiceEnable(mContext);
                 mHandler.sendEmptyMessageDelayed(TRY_DEAL, mSetDelay);
                 break;
@@ -142,18 +144,22 @@ public class LauncherAliasManager {
                 if (TextUtils.isEmpty(mEnableAlias)) {
                     return;
                 }
-                //这个send会发很多次，最后一次的开始真正处理
+                //这个send会发很多次
                 if (mHandler.hasMessages(DEAL_REQUEST)) {
                     Log.i(TAG, "applyAlias cancel send request");
                     mHandler.removeMessages(DEAL_REQUEST);
-                    mSetDelay -= SET_INTERVAL;
-                    if ((SET_DELAY - mSetDelay) / SET_INTERVAL >= TRY_COUNT) {
-                        mEnableAlias = null;
-                        mSetDelay = SET_DELAY;
-                        Log.i(TAG, "applyAlias cancel deal for more than 3 times");
-                        return;
+                    //有效的间隔，大概设置的。因为系统处理的时候，会集中处理发一连串的广播过来
+                    if (System.currentTimeMillis() - mLastRetryTime > SET_DELAY / 4) {
+                        mSetDelay -= SET_INTERVAL;
+                        if ((SET_DELAY - mSetDelay) / SET_INTERVAL >= TRY_COUNT) {
+                            mEnableAlias = null;
+                            mSetDelay = SET_DELAY;
+                            Log.i(TAG, "applyAlias cancel deal for more than 3 times");
+                            return;
+                        }
                     }
                 }
+                mLastRetryTime = System.currentTimeMillis();
                 Log.i(TAG, "applyAlias send request");
                 //获取到基准点后，开始设置新的基准点
                 setPackageManagerServiceEnable(mContext);
@@ -163,6 +169,7 @@ public class LauncherAliasManager {
             case TRY_DEAL:
             case DEAL_REQUEST: {
                 mSetDelay = SET_DELAY;
+                mLastRetryTime = 0L;
                 if (!TextUtils.isEmpty(mEnableAlias)) {
                     Log.i(TAG, "applyAlias deal request");
                     enableComponent(mContext, new ComponentName(mContext, mEnableAlias));
