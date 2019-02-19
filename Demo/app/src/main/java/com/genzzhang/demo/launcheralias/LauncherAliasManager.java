@@ -236,6 +236,7 @@ public class LauncherAliasManager {
         boolean available = false;
         for (ResolveInfo resolveInfo : resolveInfos) {
             String currentHomePackage = resolveInfo.activityInfo.packageName;
+            Log.e(TAG, "currentHomePackage name : " + currentHomePackage);
             for (int i = 0; i < supportLaunchers.size(); i++) {
                 if (TextUtils.equals(currentHomePackage, supportLaunchers.get(i))) {
                     available = true;
