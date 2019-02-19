@@ -34,8 +34,8 @@ import java.util.List;
  * 所以在10秒内切换多次，上面的9.5秒就可以变为0。
  *
  * app更新，如果展示的图标比以往的少，会导致升级后最终一个图标都不显示需要重启launcher才显示正常
- * app更新，如果展示的图标数量没有变少，但是图标enable或者可见发生了变化，那么导致开始enable后续disable的点击提示无法安装
  * 所以，不要改变mainfest中的activity-alias为不显示，包括enable设置或者隐式隐藏
+ * 一旦使用了alias中的，后续更新的时候，就不能删除，也不能更改enable
  * 如果要更新图标，直接替换icon就可以了。
  *
  * 源码：PackageManagerService
