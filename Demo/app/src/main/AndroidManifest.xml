@@ -18,7 +18,7 @@
                 <data android:scheme="launcher" android:host="com.genzzhang.demo"/>
             </intent-filter>
         </activity>
-        <!--预埋动态处理，launcher activity默认别名-->
+        <!--预埋动态处理，launcher activity默认别名,修改则LauncherAliasManager的默认一并修改-->
         <activity-alias android:name="com.genzzhang.demo.DefaultAliasActivity"
             android:enabled="true"
             android:targetActivity="com.genzzhang.demo.MainActivity">
