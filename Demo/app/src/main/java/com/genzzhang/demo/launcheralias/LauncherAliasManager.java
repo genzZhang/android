@@ -35,7 +35,7 @@ import java.util.List;
  *
  * app更新，如果展示的图标比以往的少，会导致升级后最终一个图标都不显示需要重启launcher才显示正常
  * 所以，不要改变mainfest中的activity-alias为不显示，包括enable设置或者隐式隐藏
- * 一旦使用了alias中的，后续更新的时候，就不能删除，也不能更改enable
+ * 一旦使用了alias中的，后续更新的时候，最好不删除，也不更改enable
  * 如果要更新图标，直接替换icon就可以了。
  *
  * 源码：PackageManagerService
