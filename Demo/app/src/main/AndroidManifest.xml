@@ -9,13 +9,35 @@
         android:supportsRtl="true"
         android:name=".app.DemoApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <!--预埋动态处理，launcher activity，如拉活、通知栏等,enable不要改-->
+        <activity android:name="com.genzzhang.demo.MainActivity">
+            android:enabled="true"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <data android:scheme="launcher" android:host="com.genzzhang.demo"/>
             </intent-filter>
         </activity>
+        <!--预埋动态处理，launcher activity默认别名-->
+        <activity-alias android:name="com.genzzhang.demo.DefaultAliasActivity"
+            android:enabled="true"
+            android:targetActivity="com.genzzhang.demo.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+        <activity-alias android:name="com.genzzhang.demo.NewAliasActivity"
+            android:enabled="false"
+            android:icon="@mipmap/ic_android"
+            android:targetActivity="com.genzzhang.demo.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+
+
         <activity android:name=".horizontalloopview.HorizontnalLoopViewActivity"/>
         <activity android:name=".touchevent.TouchEventActivity"/>
         <activity android:name=".porterduffanimation.PorterDuffActivity"/>
@@ -24,6 +46,8 @@
         <activity android:name=".xmlparser.EmojiParseActivity"/>
         <activity android:name=".richtexts.RichTextsActivity"/>
         <activity android:name=".nestscrollsuction.NestScrollSuctionActivity"/>
+        <activity android:name=".ringtone.RingtoneActivity"/>
+        <activity android:name=".launcheralias.LauncherAliasActivity"/>
     </application>
 
 </manifest>

@@ -214,7 +214,7 @@ public class NestScrollLayout extends LinearLayout {
                 mVelocityTracker.addMovement(ev);
                 deltaY = mLastY - currentY;
                 //去掉 && shiftY > shiftX
-                if (!mIsBeingDragged && shiftY > mTouchSlop) {
+                if (!mIsBeingDragged && shiftY > mTouchSlop && shiftY > shiftX) {
                     mIsBeingDragged = true;
                 }
                 mLastY = currentY;
@@ -228,7 +228,7 @@ public class NestScrollLayout extends LinearLayout {
                 boolean needInterceptor = false;
                 if (mIsBeingDragged && (!isSticked((deltaY >= 0)))) {
                     //去掉 && shiftY > shiftX
-                    if (shiftY > mTouchSlop) {
+                    if (shiftY > mTouchSlop && shiftY > shiftX) {
                         scrollBy(0, (int) (deltaY + 0.5));
                         Log.i(TAG, "dispatchTouchEvent ACTION_MOVE scrollBy");
                     }

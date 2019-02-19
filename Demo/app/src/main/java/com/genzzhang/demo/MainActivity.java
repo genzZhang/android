@@ -8,12 +8,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.genzzhang.demo.horizontalloopview.HorizontnalLoopViewActivity;
+import com.genzzhang.demo.launcheralias.LauncherAliasActivity;
 import com.genzzhang.demo.listviewanimation.ListviewAniActivity;
 import com.genzzhang.demo.nestscrollsuction.NestScrollSuctionActivity;
 import com.genzzhang.demo.porterduffanimation.PorterDuffActivity;
 import com.genzzhang.demo.richtexts.RichTextsActivity;
+import com.genzzhang.demo.ringtone.RingtoneActivity;
 import com.genzzhang.demo.shader.ShaderActivity;
 import com.genzzhang.demo.touchevent.TouchEventActivity;
 import com.genzzhang.demo.util.C;
@@ -53,6 +56,7 @@ public class MainActivity extends Activity {
                 return true;
             }
         });
+        Toast.makeText(this, getIntent().getComponent().getClassName(), Toast.LENGTH_SHORT).show();
     }
 
     private void loadClass() {
@@ -65,6 +69,9 @@ public class MainActivity extends Activity {
         mActivityList.add(new ActivityHolder("读取assets中Xml解析展示Emoji", EmojiParseActivity.class));
         mActivityList.add(new ActivityHolder("富文本展示", RichTextsActivity.class));
         mActivityList.add(new ActivityHolder("嵌套滑动吸顶页面", NestScrollSuctionActivity.class));
+        mActivityList.add(new ActivityHolder("设置联系人铃声", RingtoneActivity.class));
+        mActivityList.add(new ActivityHolder("切换桌面图标", LauncherAliasActivity.class));
+
 
         //end
         mDescri = new String[mActivityList.size()];

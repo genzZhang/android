@@ -110,7 +110,7 @@ public class NestScrollSuctionActivity extends AbsActivity {
         //如果listview为空，可以多移动
         nestScrollLayout.setNoListMoreScrollY(Tools.dip2px( 80));
         //加载listview
-        String[] mDescri = new String[20];
+        String[] mDescri = new String[100];
         for (int i = 0; i < mDescri.length; i++) {
             mDescri[i] = i + 1 + "测试ListView";
         }
