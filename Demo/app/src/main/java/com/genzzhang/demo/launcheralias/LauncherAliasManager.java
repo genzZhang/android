@@ -171,7 +171,7 @@ public class LauncherAliasManager {
                 mSetDelay = SET_DELAY;
                 mLastRetryTime = 0L;
                 if (!TextUtils.isEmpty(mEnableAlias)) {
-                    Log.i(TAG, "applyAlias deal request");
+                    Log.i(TAG, "applyAlias deal request start");
                     enableComponent(mContext, new ComponentName(mContext, mEnableAlias));
                     for (int i = 0; i < mAliasList.size(); i++) {
                         String tmp = mAliasList.get(i);
@@ -179,6 +179,7 @@ public class LauncherAliasManager {
                             disableComponent(mContext, new ComponentName(mContext, tmp));
                         }
                     }
+                    Log.i(TAG, "applyAlias deal request end");
                     mEnableAlias = null;
                 }
                 break;
