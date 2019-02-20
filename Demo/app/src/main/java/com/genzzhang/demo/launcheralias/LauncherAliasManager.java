@@ -229,19 +229,17 @@ public class LauncherAliasManager {
         }
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
-        List<ResolveInfo> resolveInfos = mContext.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        if (resolveInfos == null || resolveInfos.isEmpty()) {
+        ResolveInfo resolveInfos = mContext.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        if (resolveInfos == null || resolveInfos.activityInfo == null || TextUtils.isEmpty(resolveInfos.activityInfo.packageName)) {
             return false;
         }
+        String currentHomePackage = resolveInfos.activityInfo.packageName;
+        Log.e(TAG, "currentHomePackage name : " + currentHomePackage);
         boolean available = false;
-        for (ResolveInfo resolveInfo : resolveInfos) {
-            String currentHomePackage = resolveInfo.activityInfo.packageName;
-            Log.e(TAG, "currentHomePackage name : " + currentHomePackage);
-            for (int i = 0; i < supportLaunchers.size(); i++) {
-                if (TextUtils.equals(currentHomePackage, supportLaunchers.get(i))) {
-                    available = true;
-                    break;
-                }
+        for (int i = 0; i < supportLaunchers.size(); i++) {
+            if (TextUtils.equals(currentHomePackage, supportLaunchers.get(i))) {
+                available = true;
+                break;
             }
         }
         return available;
