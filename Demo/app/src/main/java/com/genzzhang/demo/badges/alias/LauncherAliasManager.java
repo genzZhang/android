@@ -1,4 +1,4 @@
-package com.genzzhang.demo.launcheralias;
+package com.genzzhang.demo.badges.alias;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;

@@ -2,6 +2,56 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.genzzhang.demo">
 
+    <!--桌面角标以及快捷方式-->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT"/>
+    <uses-permission android:name="com.android.launcher2.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher2.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher3.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher3.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="org.adw.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="org.adw.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.htc.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.qihoo360.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.qihoo360.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.lge.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.lge.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="net.qihoo.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="net.qihoo.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="org.adwfreak.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="org.adwfreak.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="org.adw.launcher_donut.permission.READ_SETTINGS"/>
+    <uses-permission android:name="org.adw.launcher_donut.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.huawei.launcher3.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.huawei.launcher3.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.fede.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.fede.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.sec.android.app.twlauncher.settings.READ_SETTINGS"/>
+    <uses-permission android:name="com.sec.android.app.twlauncher.settings.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.anddoes.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.anddoes.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.tencent.qqlauncher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.tencent.qqlauncher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.huawei.launcher2.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.huawei.launcher2.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.android.mylauncher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.android.mylauncher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.ebproductions.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.ebproductions.android.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.lenovo.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.lenovo.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="telecom.mdesk.permission.READ_SETTINGS"/>
+    <uses-permission android:name="telecom.mdesk.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="dianxin.permission.ACCESS_LAUNCHER_DATA"/>
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/> <!--角标设置，很多需要这个权限-->
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -47,7 +97,7 @@
         <activity android:name=".richtexts.RichTextsActivity"/>
         <activity android:name=".nestscrollsuction.NestScrollSuctionActivity"/>
         <activity android:name=".ringtone.RingtoneActivity"/>
-        <activity android:name=".launcheralias.LauncherAliasActivity"/>
+        <activity android:name=".badges.BadgesActivity"/>
     </application>
 
 </manifest>
