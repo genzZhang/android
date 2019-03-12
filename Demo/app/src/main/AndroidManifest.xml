@@ -60,8 +60,8 @@
         android:name=".app.DemoApplication"
         android:theme="@style/AppTheme">
         <!--预埋动态处理，launcher activity，如拉活、通知栏等,enable不要改-->
-        <activity android:name="com.genzzhang.demo.MainActivity">
-            android:enabled="true"
+        <activity android:name="com.genzzhang.demo.MainActivity"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
