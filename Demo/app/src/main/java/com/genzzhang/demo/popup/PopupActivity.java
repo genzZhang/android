@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -82,11 +83,11 @@ public class PopupActivity extends AbsActivity {
                     public Object invoke(Object o, Method method, Object[] args) throws Throwable {
                         // updateViewLayout removeView
                         if (TextUtils.equals(method.getName(), "addView")) {
-                            if (System.currentTimeMillis() - lastAddTime > 3 * 1000) {
+                            if (System.currentTimeMillis() - lastAddTime > 2 * 1000) {
                                 lastAddTime = System.currentTimeMillis();
                                 return method.invoke(mOriginalWindowManager, args);
                             } else {
-                                mToast.setText("距离上次不足3秒");
+                                mToast.setText("距离上次不足2秒");
                                 mToast.show();
                                 return null;
                             }
@@ -120,7 +121,9 @@ public class PopupActivity extends AbsActivity {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                //android 8.0已经废弃了一些类型
+                Build.VERSION.SDK_INT >= 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY :
+                    WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                         | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                 PixelFormat.RGBA_8888);
