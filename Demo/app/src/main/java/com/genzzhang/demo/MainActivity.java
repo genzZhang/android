@@ -10,10 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.genzzhang.demo.horizontalloopview.HorizontnalLoopViewActivity;
 import com.genzzhang.demo.badges.BadgesActivity;
+import com.genzzhang.demo.horizontalloopview.HorizontnalLoopViewActivity;
 import com.genzzhang.demo.listviewanimation.ListviewAniActivity;
 import com.genzzhang.demo.nestscrollsuction.NestScrollSuctionActivity;
+import com.genzzhang.demo.popup.PopupActivity;
 import com.genzzhang.demo.porterduffanimation.PorterDuffActivity;
 import com.genzzhang.demo.richtexts.RichTextsActivity;
 import com.genzzhang.demo.ringtone.RingtoneActivity;
@@ -71,6 +72,7 @@ public class MainActivity extends Activity {
         mActivityList.add(new ActivityHolder("嵌套滑动吸顶页面", NestScrollSuctionActivity.class));
         mActivityList.add(new ActivityHolder("设置联系人铃声", RingtoneActivity.class));
         mActivityList.add(new ActivityHolder("设置桌面角标和切换图标", BadgesActivity.class));
+        mActivityList.add(new ActivityHolder("弹窗控制WindowManager Hook", PopupActivity.class));
 
 
         //end

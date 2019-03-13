@@ -9,6 +9,7 @@ import com.genzzhang.demo.util.C;
 
 public class AbsActivity extends AppCompatActivity {
 
+    protected final static String TAG = "AbsActivity";
     protected Toast mToast;
     protected Context mContext;
 

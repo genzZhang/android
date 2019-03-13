@@ -51,6 +51,8 @@
     <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
     <uses-permission android:name="android.permission.INTERNET"/> <!--角标设置，很多需要这个权限-->
 
+    <!--悬浮窗-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:allowBackup="true"
@@ -98,6 +100,7 @@
         <activity android:name=".nestscrollsuction.NestScrollSuctionActivity"/>
         <activity android:name=".ringtone.RingtoneActivity"/>
         <activity android:name=".badges.BadgesActivity"/>
+        <activity android:name=".popup.PopupActivity"/>
     </application>
 
 </manifest>
