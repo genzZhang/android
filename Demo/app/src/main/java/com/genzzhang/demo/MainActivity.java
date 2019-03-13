@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.genzzhang.demo.badges.BadgesActivity;
 import com.genzzhang.demo.horizontalloopview.HorizontnalLoopViewActivity;
@@ -57,7 +56,6 @@ public class MainActivity extends Activity {
                 return true;
             }
         });
-        Toast.makeText(this, getIntent().getComponent().getClassName(), Toast.LENGTH_SHORT).show();
     }
 
     private void loadClass() {
