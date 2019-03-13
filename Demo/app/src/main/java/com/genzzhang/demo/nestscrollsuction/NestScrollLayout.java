@@ -372,17 +372,53 @@ public class NestScrollLayout extends LinearLayout {
      * @param delegateView
      */
     public void setHeaderTouchDelegate(final View headerProxyView, final View delegateView) {
-        NestScrollLayout.this.getViewTreeObserver().removeOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+        if (headerProxyView == null || delegateView == null) {
+            return;
+        }
+        final View parent = (View) headerProxyView.getParent();
+        parent.post(new Runnable() {
             @Override
-            public boolean onPreDraw() {
-                Rect rect = new Rect();
-                headerProxyView.getHitRect(rect);
-                TouchDelegate delegate = new TouchDelegate(rect, delegateView);
-                NestScrollLayout.this.setTouchDelegate(delegate);
+            public void run() {
+                TouchDelegateImpl delegate = new TouchDelegateImpl(headerProxyView, delegateView);
+                delegate.setDelegate(NestScrollLayout.this);
                 mHeaderClickEnable = true;
-                return true;
             }
         });
+    }
+
+    /**
+     * 有些手机有时候，会拿不到数据，重试几次再去拿
+     */
+    public static class TouchDelegateImpl {
+
+        private View headerProxyView;
+        private View delegateView;
+
+        private int tryCount = 5;
+
+        public TouchDelegateImpl (final View headerProxyView, final View delegateView) {
+            this.headerProxyView = headerProxyView;
+            this.delegateView = delegateView;
+        }
+
+        public void setDelegate(final NestScrollLayout scrollableLayout) {
+            Rect rect = new Rect();
+            headerProxyView.getHitRect(rect);
+            Log.i(TAG, "getHitRect, " + rect);
+            if (tryCount >= 0 && rect.left == 0 && rect.right == 0 && rect.top == 0 && rect.bottom == 0) {
+                final View parent = (View) headerProxyView.getParent();
+                parent.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tryCount--;
+                        setDelegate(scrollableLayout);
+                    }
+                }, 300);
+            } else {
+                TouchDelegate delegate = new TouchDelegate(rect, delegateView);
+                scrollableLayout.setTouchDelegate(delegate);
+            }
+        }
     }
 
     /**

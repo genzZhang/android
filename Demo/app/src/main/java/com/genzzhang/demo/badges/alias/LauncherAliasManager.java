@@ -55,6 +55,7 @@ public class LauncherAliasManager {
     private long mLastRetryTime = 0L;
 
     private String mEnableAlias;
+    private boolean mNeedDeal;
     private ArrayList<String> mAliasList = new ArrayList<String>();
 
     private Context mContext;
@@ -117,31 +118,34 @@ public class LauncherAliasManager {
         switch (msg.what) {
             case RECEIVE_REQUEST: {
                 if (!isAvailable()) {
-                    Log.e(TAG, "桌面不支持切换图标");
+                    Log.e(TAG, "该桌面不支持切换图标");
                     return;
                 }
                 mEnableAlias = (String) msg.obj;
                 Log.i(TAG, "applyAlias receive request " + mEnableAlias);
-                //重复设置默认图标
-                if (TextUtils.equals(default_alias_activity, mEnableAlias)) {
-                    int status = mContext.getPackageManager().getComponentEnabledSetting(
-                            new ComponentName(mContext, default_alias_activity));
-                    if (status == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT ||
-                            status == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
-                        Log.i(TAG, "applyAlias receive same default alias, direct return");
-                        return;
+                //重复设置图标
+                Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(mContext.getPackageName());
+                if (intent != null && intent.getComponent() != null) {
+                    String className = intent.getComponent().getClassName();
+                    Log.i(TAG, "applyAlias current alias : " + className);
+                    if (!TextUtils.isEmpty(className)) {
+                        if (TextUtils.equals(mEnableAlias, className)) {
+                            Log.i(TAG, "applyAlias receive same alias, direct return");
+                            return;
+                        }
                     }
                 }
                 //边寻找基准点边send，试着认为当前就可以认为是基准点
                 mSetDelay = SET_DELAY;
                 mLastRetryTime = 0L;
+                mNeedDeal = true;
                 setPackageManagerServiceEnable(mContext);
                 mHandler.sendEmptyMessageDelayed(TRY_DEAL, mSetDelay);
                 break;
             }
             case SEND_REQUEST: {
                 //确认处理完了，就不再处理
-                if (TextUtils.isEmpty(mEnableAlias)) {
+                if (!mNeedDeal || TextUtils.isEmpty(mEnableAlias)) {
                     return;
                 }
                 //这个send会发很多次
@@ -170,7 +174,7 @@ public class LauncherAliasManager {
             case DEAL_REQUEST: {
                 mSetDelay = SET_DELAY;
                 mLastRetryTime = 0L;
-                if (!TextUtils.isEmpty(mEnableAlias)) {
+                if (mNeedDeal && !TextUtils.isEmpty(mEnableAlias)) {
                     Log.i(TAG, "applyAlias deal request start");
                     enableComponent(mContext, new ComponentName(mContext, mEnableAlias));
                     for (int i = 0; i < mAliasList.size(); i++) {
@@ -179,8 +183,8 @@ public class LauncherAliasManager {
                             disableComponent(mContext, new ComponentName(mContext, tmp));
                         }
                     }
-                    Log.i(TAG, "applyAlias deal request end");
-                    mEnableAlias = null;
+                    Log.i(TAG, "applyAlias deal request end");mEnableAlias = null;
+                    mNeedDeal = false;
                 }
                 break;
             }
